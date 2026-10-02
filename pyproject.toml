@@ -1,7 +1,7 @@
 [project]
 name = "daily_dish"
 version = "0.1.0"
-description = "Add your description here"
+description = "Terminal chat app backed by Groq"
 readme = "README.md"
 authors = [
     { name = "S-Akalanka", email = "sasiri.akalankaa@gmail.com" }
@@ -9,5 +9,13 @@ authors = [
 requires-python = ">=3.14"
 dependencies = [
     "groq>=1.7.0",
+    "pypdf>=6.19.0",
     "python-dotenv>=1.2.4",
 ]
+
+[project.scripts]
+daily-dish = "daily_dish.__main__:main"
+
+[build-system]
+requires = ["uv_build>=0.8,<0.12"]
+build-backend = "uv_build"
