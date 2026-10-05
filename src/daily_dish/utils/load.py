@@ -4,7 +4,7 @@ from pypdf import PdfReader
 ROOT = Path(__file__).resolve().parents[3]
 PDF_PATH = ROOT /"docs/faqs.pdf"
 
-def load_text():
+def load_text()-> str:
     text = ""
 
     if not PDF_PATH.exists:
@@ -15,8 +15,3 @@ def load_text():
         text += page.extract_text()
 
     return text
-
-
-if __name__ == "__main__":
-    load_text()
-    
