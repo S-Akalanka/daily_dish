@@ -1,4 +1,4 @@
-from pedal_pal.utils.llm import ask_llm
+from trail_pal.utils.llm import ask_llm
 
 def run_chat() -> None:
     print("\nWelcome to the chat! Type 'exit' to quit.\n")

@@ -1,7 +1,7 @@
 [project]
-name = "pedal_pal"
+name = "trail_pal"
 version = "0.1.0"
-description = "Terminal assistant for the Pedal Pal bike shop"
+description = "Terminal assistant for Trail Pal, an outdoor tours company"
 readme = "README.md"
 authors = [
     { name = "S-Akalanka", email = "sasiri.akalankaa@gmail.com" }
@@ -17,7 +17,7 @@ dependencies = [
 ]
 
 [project.scripts]
-pedal-pal = "pedal_pal.__main__:main"
+trail-pal = "trail_pal.main:main"
 
 [build-system]
 requires = ["uv_build>=0.8,<0.12"]

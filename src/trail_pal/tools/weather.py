@@ -2,7 +2,7 @@ import requests
 from dotenv import load_dotenv
 import os
 
-from pedal_pal.tools.memoryAgent import MemoryAgent
+from trail_pal.tools.memoryAgent import MemoryAgent
 
 class WeatherAgent:
     def __init__(self, api_key:str, memory: MemoryAgent):

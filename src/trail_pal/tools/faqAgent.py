@@ -18,5 +18,5 @@ class FaqAgent:
         best_idx = np.argmax(similarities)
 
         if similarities[best_idx] < 0.08:
-            return None
+            return -1
         return self.answers[best_idx]

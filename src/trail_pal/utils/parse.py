@@ -1,5 +1,5 @@
 import re
-from pedal_pal.utils.clean import clean_text
+from trail_pal.utils.clean import clean_text
 
 def parse_faq(text:str)-> object:
     faq_pairs = []
