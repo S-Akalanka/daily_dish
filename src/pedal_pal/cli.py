@@ -1,4 +1,4 @@
-from daily_dish.llm import ask_llm
+from pedal_pal.llm import ask_llm
 
 
 def run_chat() -> None:

@@ -1,7 +1,7 @@
 [project]
-name = "daily_dish"
+name = "pedal_pal"
 version = "0.1.0"
-description = "Terminal chat app backed by Groq"
+description = "Terminal assistant for the Pedal Pal bike shop"
 readme = "README.md"
 authors = [
     { name = "S-Akalanka", email = "sasiri.akalankaa@gmail.com" }
@@ -12,10 +12,11 @@ dependencies = [
     "pypdf>=6.19.0",
     "python-dotenv>=1.2.4",
     "regex>=2026.9.29",
+    "requests>=2.34.2",
 ]
 
 [project.scripts]
-daily-dish = "daily_dish.__main__:main"
+pedal-pal = "pedal_pal.__main__:main"
 
 [build-system]
 requires = ["uv_build>=0.8,<0.12"]

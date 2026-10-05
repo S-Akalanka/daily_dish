@@ -1,5 +1,5 @@
 import re
-from daily_dish.utils.clean import clean_text
+from pedal_pal.utils.clean import clean_text
 
 def parse_faq(text:str)-> object:
     faq_pairs = []
