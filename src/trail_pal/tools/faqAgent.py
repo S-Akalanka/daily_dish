@@ -17,6 +17,6 @@ class FaqAgent:
         similarities = cosine_similarity(query_vector, self.doc_vectors)[0]
         best_idx = np.argmax(similarities)
 
-        if similarities[best_idx] < 0.08:
+        if similarities[best_idx] < 0.45:
             return -1
         return self.answers[best_idx]
