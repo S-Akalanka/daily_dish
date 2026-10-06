@@ -12,14 +12,14 @@ class WeatherAgent:
 
     def answer(self, city:str):
         params = {
-            "city": city,
+            "q": city,
             "appid": self.api_key,
-            "units": "metrics" 
+            "units": "metric" 
         }
 
         res = requests.get(self.url, params=params)
 
-        if res!=200:
+        if res.status_code!=200:
             return "I couldn't retrieve the weather right now."
 
         data = res.json()
@@ -32,7 +32,7 @@ class WeatherAgent:
                     f"with a temperature of {data['main']['temp']}°C."
                 )
 
-        if previous:
+        if previous!=None:
             response += f" Earlier it was {previous['temp']}°C."
 
         return response

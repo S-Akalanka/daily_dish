@@ -6,8 +6,8 @@ class MemoryAgent:
     def store(self, key:str, value:str)->None:
         self.storage[key] = value
 
-    def recall(self, key:str)->str | object:
-        if key:
+    def recall(self, key:str)->int | object:
+        if key in self.storage:
             return self.storage[key]
-        return self.storage
+        return None
     

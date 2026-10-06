@@ -1,18 +1,26 @@
 from trail_pal.utils.llm import ask_llm
+from trail_pal.tools.faqAgent import FaqAgent
 
-def run_chat() -> None:
-    print("\nWelcome to the chat! Type 'exit' to quit.\n")
+
+WELCOME = """
+Assistant: Hi! I'm the Trail Pal assistant. I can help with:
+  - Tours, prices, booking and what to bring
+  - Weather forecasts for your tour day (try: "Will it rain on my hike tomorrow?")
+  - Cancellation and refund policies
+
+Type 'exit' to quit.
+"""
+
+def run_chat(faqAgent: FaqAgent) -> None:
+    print(WELCOME)
 
     while True:
-        user_input = input("You: ")
-
+        user_input = input("You       : ")
         if user_input.strip().lower() == "exit":
             break
+        res = faqAgent.answer(user_input)
 
-        try:
-            reply = ask_llm(user_input)
-        except Exception as e:
-            print(f"Error: {e}\n")
-            continue
-
-        print(f"AI : {reply}\n")
+        if res == -1:
+            print(f"Assistant : {ask_llm(user_input)}")
+        else:
+            print(f"Assistant : {res}")
