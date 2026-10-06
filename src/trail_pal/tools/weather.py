@@ -13,7 +13,7 @@ class WeatherAgent:
         self.api_key = os.getenv("OPEN_WEATHER")
 
 
-    def answer(self, city:str):
+    def answer(self, city:str="Nuwara Eliya"):
         params = {
             "q": city,
             "appid": self.api_key,
@@ -27,8 +27,8 @@ class WeatherAgent:
 
         data = res.json()
 
-        previous = self.memory.recall(city)
-        self.memory.store(city, data["main"])
+        previous = self.memory.recall("weather")
+        self.memory.store_weather(data["main"])
 
         response = (
                     f"The current weather in {city} is {data['weather'][0]['description']} "
@@ -36,7 +36,7 @@ class WeatherAgent:
                 )
 
         if previous!=None:
-            response += f" Earlier it was {previous['temp']}°C in this conversation."
+            response += f" Earlier it was {previous}°C in this conversation."
 
         final_res = {"role": "system", "content": response}
         return final_res

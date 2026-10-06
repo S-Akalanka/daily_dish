@@ -1,9 +1,8 @@
-import os
-
 from trail_pal.utils.llm import ask_llm
 from trail_pal.tools.faqAgent import FaqAgent
 from trail_pal.tools.memoryAgent import MemoryAgent
 from trail_pal.tools.weather import WeatherAgent
+from trail_pal.tools.memoryAgent import MemoryAgent
 
 
 WELCOME = """
@@ -30,10 +29,10 @@ def route_query(user_input: str) -> str:
     if any(word in user_input.lower() for word in weather_keywords):
         weather_info = weather_agent.answer(LOCATION)
         user_input = f"{user_input}\n\n{weather_info})"
-        print(f"Assistant : {ask_llm(user_input)}")
+        print(f"Assistant : {ask_llm(user_input, memory_agent)}")
 
     else:
-        print(f"Assistant : {ask_llm(user_input)}")
+        print(f"Assistant : {ask_llm(user_input, memory_agent)}")
 
 
 def run_chat(faqAgent: FaqAgent) -> None:
@@ -43,9 +42,12 @@ def run_chat(faqAgent: FaqAgent) -> None:
         user_input = input("You       : ")
         if user_input.strip().lower() == "exit":
             break
+
         res = faqAgent.answer(user_input)
 
         if res == -1:
             route_query(user_input)
         else:
             print(f"Assistant : {res}")
+            memory_agent.store_chat({"role": "user", "content": user_input})
+            memory_agent.store_chat({"role": "assistant", "content": res})

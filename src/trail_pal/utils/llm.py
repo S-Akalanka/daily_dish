@@ -1,6 +1,9 @@
 from dotenv import load_dotenv
 from groq import Groq
 from pathlib import Path
+from trail_pal.tools.memoryAgent import MemoryAgent
+
+import re
 
 load_dotenv()
 ROOT = Path(__file__).resolve().parents[3]
@@ -8,14 +11,17 @@ ROOT = Path(__file__).resolve().parents[3]
 MODEL = "openai/gpt-oss-20b"
 INSTRUCTIONS = (ROOT/ "docs" / "instructions.md").read_text(encoding="utf-8")
 
-def ask_llm(query: str):
+def ask_llm(prompt: str, memory:MemoryAgent):
     try:
         client = Groq()
+        history = memory.recall("history")
+
         completion = client.chat.completions.create(
             model=MODEL,
             messages=[
                 {"role": "system", "content": INSTRUCTIONS},
-                {"role": "user", "content": query}
+                *history,
+                {"role": "user", "content": prompt}
             ],
             temperature=1,
             max_completion_tokens=2048,
@@ -24,8 +30,20 @@ def ask_llm(query: str):
             stream=False,
             stop=None,
         )
-        return completion.choices[0].message.content or ""
+        response = completion.choices[0].message.content or ""
+
+        filtered = filter_prompt(prompt)
+        memory.store_chat({"role": "user", "content": filtered})
+        memory.store_chat({"role": "assistant", "content": response})
+        return response
 
     except Exception as e:
         print(f"Error: {e}\n")
         return
+
+def filter_prompt(prompt:str)->str:
+    pattern = r'\{"role":\s*"system",\s*"content":\s*.*?\}'
+
+    if re.search(pattern, prompt):
+        prompt = re.sub(pattern, "",prompt)
+    return prompt
