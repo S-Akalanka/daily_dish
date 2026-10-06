@@ -8,7 +8,7 @@ from trail_pal.tools.memoryAgent import MemoryAgent
 WELCOME = """
 Assistant: Hi! I'm the Trail Pal assistant. I can help with:
   - Tours, prices, booking and what to bring
-  - Today's weather for your tour (try: "Is it raining right now?") — today only, no forecasts
+  - Today's weather for your tour (try: "Is it raining right now?"), today only, no forecasts
   - Cancellation and refund policies
 
 Type 'exit' to quit.
